@@ -16,19 +16,31 @@ public class Polynomial {
     }
 
     public Polynomial(double[] coeffs, int[] expos) {
-        coefficients = new double[coeffs.length];
-        exponents = new int[expos.length];
 
-        for (int i = 0; i < coeffs.length; i++) {
-            coefficients[i] = coeffs[i];
-        }
-        for (int i = 0; i < expos.length; i++) {
-            exponents[i] = expos[i];
-        }
-        
-
-        
+    int n = coeffs.length;
+    double[] c = new double[n];
+    int[] e = new int[n];
+    for (int i = 0; i < n; i++) {
+        c[i] = coeffs[i];
+        e[i] = expos[i];
     }
+    for (int i = 0; i < n-1; i++) {
+        for (int j = i+1; j < n; j++) {
+            if (e[i] > e[j]) {
+                int tmpE = e[i];
+                e[i] = e[j];
+                e[j] = tmpE;
+                double tmpC = c[i];
+                c[i] = c[j];
+                c[j] = tmpC;
+            }
+        }
+    }
+
+    this.coefficients = c;
+    this.exponents = e;
+}
+
 
     
     public Polynomial add(Polynomial second) {
